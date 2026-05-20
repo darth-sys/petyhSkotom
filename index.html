@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор Скотомогильника</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body { 
+            padding: 15px; 
+            line-height: 1.6; 
+            background-color: #1a1a1a; 
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container { 
+            max-width: 360px; 
+            width: 100%;
+            border-radius: 24px; 
+            border: 2px solid #333;
+            
+            background: url('img/font.png') no-repeat center center;
+            background-size: cover;
+            
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative; 
+            margin-top: 110px; 
+            padding: 35px 20px 25px 20px;
+            overflow: visible;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            to {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        .top-petyh {
+            position: absolute;
+            top: -105px; 
+            left: 50%;
+            transform-origin: center center;
+            width: 120px; 
+            height: auto;
+            z-index: 1; 
+            background: transparent;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+            /* Снизил время полного оборота с 4s до 0.6s для быстрого вращения */
+            animation: spin 1.5s linear infinite;
+        }
+        
+        h2 {
+            margin: 10px 0 25px 0;
+            text-align: center;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.9);
+        }
+        
+        .form-group { 
+            margin-bottom: 20px; 
+            background: transparent; 
+            padding: 5px 0px; 
+        }
+        
+        label { 
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            color: #fff;
+            font-size: 14px;
+            text-shadow: 0 2px 4px rgba(0,0,0,1), 0 0 6px rgba(0,0,0,1); 
+        }
+        
+        input, select { 
+            width: 100%; 
+            padding: 12px; 
+            box-sizing: border-box; 
+            border: 2px solid rgba(255,255,255,0.4); 
+            border-radius: 12px;
+            font-size: 15px;
+            background-color: rgba(255, 255, 255, 0.42); 
+            color: #111;
+            outline: none;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+        
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            background-color: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+        }
+        
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.37), rgba(46, 125, 50, 0.37));
+            color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            cursor: pointer; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+        }
+        
+        button:hover { 
+            background: linear-gradient(135deg, rgba(69, 160, 73, 0.45), rgba(27, 94, 32, 0.45));
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+        
+        button:active {
+            transform: scale(0.97);
+        }
+        
+        #result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            background: rgba(0, 0, 0, 0.22); 
+            border-radius: 12px; 
+            font-weight: 700; 
+            text-align: center; 
+            color: #fff;
+            border: 2px solid rgba(76, 175, 80, 0.4);
+            font-size: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .spoon-icon { 
+            width: 20px; 
+            height: auto;
+            margin-right: 8px; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="img/petyh.png" alt="Монитор" class="top-petyh">
+
+    <h2>Калькулятор Скотомогильника</h2>
+    
+    <div class="form-group">
+        <label for="holes">Количество могил:</label>
+        <input type="number" id="holes" value="1" min="1">
+    </div>
+
+    <div class="form-group">
+        <label for="spoonType">
+            <img src="img/petyh.png" alt="Ложка" class="spoon-icon">
+            Выберите ложку:
+        </label>
+        <select id="spoonType">
+            <option value="17">Столовая (15 мл)</option>
+            <option value="34.1">Десертная (10 мл)</option>
+            <option value="52.6">Чайная (5 мл)</option>
+        </select>
+    </div>
+
+    <button onclick="calculate()">Подсчитать</button>
+
+    <div id="result">Ожидание данных...</div>
+</div>
+
+<script>
+    function calculate() {
+        const holes = document.getElementById('holes').value;
+        const factor = document.getElementById('spoonType').value;
+        const resultDiv = document.getElementById('result');
+        
+        if (holes > 0) {
+            const days = (holes * factor).toFixed(1);
+            resultDiv.innerHTML = "Потребуется примерно " + days + " дней работы.";
+        } else {
+            resultDiv.innerHTML = "Введите корректное количество ям.";
+        }
+    }
+</script>
+
+</body>
+</html>
